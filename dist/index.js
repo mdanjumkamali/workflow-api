@@ -13,7 +13,7 @@ const task_route_1 = __importDefault(require("./routes/task/task.route"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
-    origin: "https://workflow-client.vercel.app/",
+    origin: "*",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
