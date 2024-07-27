@@ -15,6 +15,10 @@ app.use(bodyParser.json());
 
 connectDB();
 
+app.get("/", (req, res) => {
+  res.send("Welcome to Task Manager API");
+});
+
 app.use("/api/auth", authRoute);
 app.use("/api/task", taskRoute);
 
