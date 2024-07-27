@@ -5,6 +5,7 @@ import cors from "cors";
 import connectDB from "./client/db";
 
 import authRoute from "./routes/auth/auth.route";
+import taskRoute from "./routes/task/task.route";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 connectDB();
 
 app.use("/api/auth", authRoute);
+app.use("/api/task", taskRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
