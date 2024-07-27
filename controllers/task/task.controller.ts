@@ -21,7 +21,12 @@ export const createTask = async (req: Request, res: Response) => {
 
 export const getTasks = async (req: Request, res: Response) => {
   try {
-    const tasks = await Task.find({ user: req.user?.id });
+    if (!req.user || !req.user.id) {
+      return res
+        .status(400)
+        .json({ message: "User ID is missing from the request" });
+    }
+    const tasks = await Task.find({ user: req.user.id });
     res.json({ tasks });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
