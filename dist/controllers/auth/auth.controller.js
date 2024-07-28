@@ -57,7 +57,7 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             expiresIn: "1d",
         });
         res.cookie("authToken", token, {
-            httpOnly: false,
+            httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
             domain: process.env.COOKIE_DOMAIN || undefined,

@@ -44,7 +44,7 @@ export const Login = async (req: Request, res: Response) => {
     });
 
     res.cookie("authToken", token, {
-      httpOnly: false,
+      httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       domain: process.env.COOKIE_DOMAIN || undefined,
