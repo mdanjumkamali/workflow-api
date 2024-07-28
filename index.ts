@@ -6,6 +6,7 @@ import connectDB from "./client/db";
 
 import authRoute from "./routes/auth/auth.route";
 import taskRoute from "./routes/task/task.route";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -33,6 +34,7 @@ const corsOptions: cors.CorsOptions = {
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 connectDB();
 
