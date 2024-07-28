@@ -17,7 +17,7 @@ const user_model_1 = require("../models/user/user.model");
 const authMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b;
     try {
-        const token = ((_a = req.cookies) === null || _a === void 0 ? void 0 : _a.token) || ((_b = req.header("Authorization")) === null || _b === void 0 ? void 0 : _b.replace("Bearer ", ""));
+        const token = ((_a = req.header("Authorization")) === null || _a === void 0 ? void 0 : _a.replace("Bearer ", "")) || ((_b = req.cookies) === null || _b === void 0 ? void 0 : _b.token);
         if (!token) {
             return res
                 .status(401)

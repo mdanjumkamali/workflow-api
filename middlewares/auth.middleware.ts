@@ -16,11 +16,11 @@ declare global {
 const authMiddleware = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   try {
     const token =
-      req.cookies?.token || req.header("Authorization")?.replace("Bearer ", "");
+      req.header("Authorization")?.replace("Bearer ", "") || req.cookies?.token;
 
     if (!token) {
       return res
