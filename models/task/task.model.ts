@@ -11,7 +11,7 @@ const taskSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["To-Do", "In Progress", "Under Review", "Completed"],
+      enum: ["To-Do", "In Progress", "Under Review", "Finished"],
       required: true,
     },
     priority: {
@@ -29,7 +29,7 @@ const taskSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const Task = mongoose.model("Task", taskSchema);

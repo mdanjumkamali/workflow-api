@@ -52,14 +52,15 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const token = yield jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, {
             expiresIn: "1d",
         });
-        return res
-            .status(200)
-            .cookie("authToken", token, {
+        res.cookie("authToken", token, {
             httpOnly: false,
             secure: true,
             sameSite: "none",
-        })
-            .json({ message: "User logged in successfully", token });
+            maxAge: 24 * 60 * 60 * 1000,
+        });
+        return res
+            .status(200)
+            .json({ message: "User logged in successfully", token, user });
     }
     catch (error) {
         return res.status(500).json({ message: "Internal server error" });

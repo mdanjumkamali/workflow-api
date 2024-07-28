@@ -10,16 +10,29 @@ const cors_1 = __importDefault(require("cors"));
 const db_1 = __importDefault(require("./client/db"));
 const auth_route_1 = __importDefault(require("./routes/auth/auth.route"));
 const task_route_1 = __importDefault(require("./routes/task/task.route"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT || 3000;
+const allowedOrigins = [
+    "http://localhost:3000",
+    "https://workflow-client.vercel.app",
+];
 const corsOptions = {
-    origin: "*",
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
 };
 app.use((0, cors_1.default)(corsOptions));
 app.use(body_parser_1.default.json());
+app.use((0, cookie_parser_1.default)());
 (0, db_1.default)();
 app.get("/", (req, res) => {
     res.send("Welcome to Task Manager API");
