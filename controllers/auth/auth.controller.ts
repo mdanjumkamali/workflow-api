@@ -3,6 +3,9 @@ import Jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { User } from "../../models/user/user.model";
 
+const isDevelopment = process.env.NODE_ENV === "development";
+const isVercelProduction = process.env.VERCEL_ENV === "production";
+
 // Sign up
 
 export const SignUp = async (req: Request, res: Response) => {
@@ -41,15 +44,16 @@ export const Login = async (req: Request, res: Response) => {
       expiresIn: "1d",
     });
 
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: !isDevelopment, // true for all Vercel deployments and false for local development
+      sameSite: isDevelopment ? "lax" : "none",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      path: "/",
+      domain: isVercelProduction ? ".vercel.app" : undefined,
+    });
     return res
       .status(200)
-      .cookie("authToken", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        maxAge: 24 * 60 * 60 * 1000,
-        path: "/",
-      })
       .json({ message: "User logged in successfully", token });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
