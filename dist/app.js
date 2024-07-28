@@ -17,20 +17,20 @@ const allowedOrigins = [
     "http://localhost:3000",
     "https://workflow-client.vercel.app",
 ];
-const corsOptions = {
+app.use((0, cors_1.default)({
     origin: function (origin, callback) {
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
+        if (!origin)
+            return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            var msg = "The CORS policy for this site does not allow access from the specified Origin.";
+            return callback(new Error(msg), false);
         }
-        else {
-            callback(new Error("Not allowed by CORS"));
-        }
+        return callback(null, true);
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-};
-app.use((0, cors_1.default)(corsOptions));
+}));
 app.use(body_parser_1.default.json());
 app.use((0, cookie_parser_1.default)());
 (0, db_1.default)();

@@ -1,11 +1,11 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && tsc -p tsconfig.json",
-    "start": "node dist/index.js",
+    "start": "node dist/app.js",
     "dev": "tsc-watch --onSuccess \"npm start\""
   },
   "keywords": [],
@@ -32,6 +32,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.5.1"
+    "mongoose": "^8.5.1",
+    "nodemon": "^3.1.4"
   }
 }
