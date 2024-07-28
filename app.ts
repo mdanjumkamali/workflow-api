@@ -9,7 +9,7 @@ import taskRoute from "./routes/task/task.route";
 import cookieParser from "cookie-parser";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -32,10 +32,9 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   }),
 );
+
 app.use(bodyParser.json());
 app.use(cookieParser());
-
-connectDB();
 
 app.get("/", (req, res) => {
   res.send("Welcome to Task Manager API");
@@ -44,6 +43,17 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRoute);
 app.use("/api/task", taskRoute);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB(); // Connect to the database
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
+};
+
+startServer();
