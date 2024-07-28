@@ -44,9 +44,11 @@ export const Login = async (req: Request, res: Response) => {
     return res
       .status(200)
       .cookie("authToken", token, {
-        httpOnly: false,
+        httpOnly: true,
         secure: true,
         sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000,
+        path: "/",
       })
       .json({ message: "User logged in successfully", token });
   } catch (error) {

@@ -10,8 +10,22 @@ import taskRoute from "./routes/task/task.route";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const corsOptions = {
-  origin: "*",
+const allowedOrigins: string[] = [
+  "http://localhost:3000",
+  "https://workflow-client.vercel.app",
+];
+
+const corsOptions: cors.CorsOptions = {
+  origin: function (
+    origin: string | undefined,
+    callback: (err: Error | null, allow?: boolean) => void,
+  ) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
