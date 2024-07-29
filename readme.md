@@ -1,24 +1,28 @@
-# Project Name
+# Workflow
 
-Workflow
-
-## Description
-
-Task management Api
+A task management API
 
 ## Table of Contents
 
+- [Technologies](#technologies)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Scripts](#scripts)
-- [Contributing](#contributing)
-- [License](#license)
+- [Development](#development)
+- [Production](#production)
+
+## Technologies
+
+- Node.js
+- Typescript
+- Express.js
+- MongoDB
 
 ## Installation
 
 To install the necessary dependencies, run:
 
 ```bash
+git clone https://github.com/mdanjumkamali/workflow-api.git
+cd workflow
 npm install
 ```
 
