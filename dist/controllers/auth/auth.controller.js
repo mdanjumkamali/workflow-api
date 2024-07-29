@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Logout = exports.Login = exports.SignUp = void 0;
+exports.Login = exports.SignUp = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const user_model_1 = require("../../models/user/user.model");
@@ -68,20 +68,3 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.Login = Login;
-// Logout
-const Logout = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        res.clearCookie("authToken", {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-            domain: process.env.COOKIE_DOMAIN || undefined,
-        });
-        return res.status(200).json({ message: "Logged out successfully" });
-    }
-    catch (error) {
-        console.error("Logout error:", error);
-        return res.status(500).json({ message: "Internal server error" });
-    }
-});
-exports.Logout = Logout;

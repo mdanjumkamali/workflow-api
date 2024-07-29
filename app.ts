@@ -30,7 +30,7 @@ app.use(
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  }),
+  })
 );
 
 app.use(bodyParser.json());
@@ -45,7 +45,7 @@ app.use("/api/task", taskRoute);
 
 const startServer = async () => {
   try {
-    await connectDB(); // Connect to the database
+    await connectDB();
 
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`);

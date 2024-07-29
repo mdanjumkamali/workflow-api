@@ -49,7 +49,7 @@ app.use("/api/auth", auth_route_1.default);
 app.use("/api/task", task_route_1.default);
 const startServer = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield (0, db_1.default)(); // Connect to the database
+        yield (0, db_1.default)();
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);
         });
