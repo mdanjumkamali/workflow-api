@@ -47,11 +47,11 @@ const Login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { email, password } = req.body;
         const user = yield user_model_1.User.findOne({ email });
         if (!user) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(400).json({ message: "Invalid email or password" });
         }
         const validPass = yield bcryptjs_1.default.compare(password, user.password);
         if (!validPass) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(400).json({ message: "Invalid email or password" });
         }
         const token = jsonwebtoken_1.default.sign({ id: user._id }, process.env.JWT_SECRET, {
             expiresIn: "1d",
