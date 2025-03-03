@@ -13,7 +13,7 @@ const PORT = process.env.PORT;
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://time-trek.vercel.app"
+  "https://task-treke.vercel.app"
 ];
 
 app.use(
