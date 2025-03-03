@@ -19,19 +19,28 @@ const allowedOrigins = [
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        var msg =
-          "The CORS policy for this site does not allow access from the specified Origin.";
-        return callback(new Error(msg), false);
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow request
+      } else {
+        callback(null, false); // Just deny the origin, no error
       }
-      return callback(null, true);
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// Handle preflight (OPTIONS) requests
+app.options("*", cors());
+
+// Global error handler (optional, but recommended)
+app.use((err, req, res, next) => {
+  if (err.name === "CorsError") {
+    return res.status(403).json({ error: "CORS policy does not allow this origin" });
+  }
+  next(err);
+});
 
 app.use(bodyParser.json());
 app.use(cookieParser());
